@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Marks Calculator</title>
+</head>
+
+<body style="font-family:Arial; text-align:center; background:lightblue; padding:20px;">
+
+    <h1>🎓 Student Marks Calculator</h1>
+
+    <p>Enter your marks below:</p>
+
+    <input type="number" id="m1" placeholder="Tamil marks"><br><br>
+    <input type="number" id="m2" placeholder="English marks"><br><br>
+    <input type="number" id="m3" placeholder="Maths marks"><br><br>
+    <input type="number" id="m4" placeholder="Science marks"><br><br>
+    <input type="number" id="m5" placeholder="Computer Science marks"><br><br>
+
+    <button onclick="calculate()">Calculate Result</button>
+
+    <h3 id="result"></h3>
+
+    <script>
+        function calculate() {
+            let ids = ["m1", "m2", "m3", "m4", "m5"];
+            let marks = [];
+
+            for (let id of ids) {
+                let value = document.getElementById(id).value;
+
+                if (value === "" || Number(value) < 0 || Number(value) > 100) {
+                    document.getElementById("result").innerHTML =
+                        "Please enter marks between 0 and 100!";
+                    return;
+                }
+
+                marks.push(Number(value));
+            }
+
+            let total = marks.reduce((a, b) => a + b, 0);
+            let average = total / 5;
+
+            let grade = average >= 90 ? "A+" :
+                        average >= 80 ? "A" :
+                        average >= 70 ? "B" :
+                        average >= 50 ? "C" : "F";
+
+            let status = marks.some(m => m < 35) ? "Fail" : "Pass";
+
+            document.getElementById("result").innerHTML =
+                "Total: " + total + "/500<br>" +
+                "Average: " + average + "%<br>" +
+                "Grade: " + grade + "<br>" +
+                "Result: " + status;
+        }
+    </script>
+
+</body>
+</html>
